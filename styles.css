@@ -251,7 +251,7 @@ body {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 20px;
 }
@@ -259,10 +259,10 @@ body {
     width: 100%;
     background: #fafafa;
     border-radius: 20px;
-    padding: 30px;
+    padding: 5px;
     text-align: center;
     margin-bottom: 30px;
-    min-height: 150px;
+    min-height: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -270,8 +270,8 @@ body {
     box-sizing: border-box;
 }
 .ion-card.compact {
-    min-height: 120px;
-    padding: 20px;
+    min-height: 30px;
+    padding: 5px;
     margin-bottom: 20px;
 }
 .ion-name {
@@ -294,6 +294,7 @@ body {
     transition: all 0.2s ease-in-out;
     user-select: none;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    color: var(--text-color); 
 }
 .answer-btn:hover:not(:disabled) {
     transform: translateY(-3px);
@@ -386,22 +387,53 @@ body {
     100% { transform: scale(1); }
 }
 
-/* --- PROTOTYPE-SPECIFIC STYLES --- */
-.input-display-area {
+/* --- ION REVISION (INPUT) MODE STYLES --- */
+
+/* Overall layout */
+#view-game-input .game-content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: flex-start;
+}
+
+/* Side-by-side question and input area */
+#view-game-input .interaction-row {
+    display: flex;
+    gap: 10px;
     width: 100%;
+    align-items: stretch;
+    margin-bottom: 15px;
+}
+#view-game-input .interaction-row .ion-card {
+    width: 60%;
+    margin-bottom: 0;
+}
+#view-game-input .interaction-row .input-display-area {
+    width: 40%;
+    margin-bottom: 0;
+    min-height: 60px;
+}
+#view-game-input .interaction-row .ion-name {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+}
+#view-game-input .interaction-row .formula-display {
+    font-size: 1.8rem;
+    min-height: 30px;
+}
+
+/* Input Display Area (when not in a row) */
+#view-game-input .input-display-area {
     box-sizing: border-box;
     background-color: #fff;
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    min-height: 100px;
     padding: 15px 20px;
-    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
 }
-.formula-display {
+#view-game-input .formula-display {
     font-family: 'Crimson Text', serif;
     font-size: 2.5rem;
     font-weight: 700;
@@ -409,30 +441,30 @@ body {
     height: 40px;
     line-height: 40px;
 }
-.formula-display:empty::after {
-    content: 'Your formula here...';
+#view-game-input .formula-display:empty::after {
+    content: '...';
     color: #ccc;
     font-family: 'Poppins', sans-serif;
     font-size: 1.2rem;
     font-weight: 500;
 }
-.keyboard {
+
+/* Keyboard */
+#view-game-input .keyboard {
     display: flex;
     flex-direction: column;
     gap: 8px;
     width: 100%;
 }
-.keyboard-row {
+#view-game-input .keyboard-row {
     display: grid;
     gap: 8px;
 }
-.element-row {
+#view-game-input .element-row,
+#view-game-input .control-row {
     grid-template-columns: repeat(5, 1fr);
 }
-.control-row {
-    grid-template-columns: repeat(5, 1fr);
-}
-.kbd-btn {
+#view-game-input .kbd-btn {
     padding: 20px 5px;
     font-size: 1.2rem;
     font-weight: 600;
@@ -445,21 +477,23 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     -webkit-tap-highlight-color: transparent;
 }
-.kbd-btn:active {
+#view-game-input .kbd-btn:active {
     transform: translateY(2px);
     box-shadow: none;
 }
-.kbd-btn.element { background-color: #fff; border: 1px solid #ddd;}
-.kbd-btn.number { background-color: #e3f2fd; }
-.kbd-btn.charge { background-color: #fff0e3; }
-.kbd-btn.action { background-color: #ffe3e3; }
-.action-buttons {
+#view-game-input .kbd-btn.element { background-color: #fff; border: 1px solid #ddd;}
+#view-game-input .kbd-btn.number { background-color: #e3f2fd; }
+#view-game-input .kbd-btn.charge { background-color: #fff0e3; }
+#view-game-input .kbd-btn.action { background-color: #ffe3e3; }
+
+/* Action Buttons */
+#view-game-input .action-buttons {
     margin-top: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
 }
-.action-btn {
+#view-game-input .action-btn {
     padding: 15px;
     font-size: 1.1rem;
     font-weight: 600;
@@ -468,34 +502,22 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-.action-btn:disabled {
+#view-game-input .action-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
-.submit-btn { background-color: var(--primary-accent); color: white; }
-.next-btn { background-color: #e0e0e0; color: #555; }
-.feedback {
+#view-game-input .submit-btn { background-color: var(--primary-accent); color: white; }
+#view-game-input .next-btn { background-color: #e0e0e0; color: #555; }
+
+/* Feedback Text */
+#view-game-input .feedback {
     text-align: center;
     font-weight: 600;
     height: 24px;
     margin-top: 10px;
 }
 
-/* --- LAYOUT FIX FOR INPUT MODE --- */
-#view-game-input .game-content {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    justify-content: flex-start;
-}
-#view-game-input .ion-card.compact {
-    margin-bottom: 15px;
-}
-#view-game-input .input-display-area {
-    margin-bottom: 15px;
-}
-
-/* --- FONT FIX FOR LONG ION NAMES --- */
-/* This rule specifically targets the ion-name when it has the long-name class */
+/* Font fix for long ion names */
 #view-game-input .ion-name.long-name {
     font-size: 1.5rem;
 }
